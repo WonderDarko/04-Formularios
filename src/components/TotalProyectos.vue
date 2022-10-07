@@ -1,5 +1,12 @@
 <template>
-    <h3>Total de proyectos {{numProyectos}}</h3>
+    <class class="row">
+        <div class="col-6">
+            <h3>Total de proyectos {{numProyectos}}</h3>
+        </div>
+        <div class="col-6 text-end">
+            <button @click="limpiarData" class="btn btn-warning">Limpiar datos</button>
+        </div>
+    </class>
     <div class="table-responsive">
         <table class="table table-dark table-hover">
             <thead>
@@ -9,6 +16,7 @@
                     <th>Tipo</th>
                     <th>Urgente</th>
                     <th>Completado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +28,9 @@
                     :class="proyecto.urgente ? 'bg-success' : 'bg-danger'">{{proyecto.urgente ? "Si" : "No"}}</td>
                     <td @click="cambiarEstado(proyecto, 'completado')" 
                     :class="proyecto.completado ? 'bg-success' : 'bg-danger'">{{proyecto.completado ? "Completado" : "Incompleto"}}</td>
+                    <td class="text-center">
+                    <button @click="deleteProyecto(index)" class="btn btn-danger">Eliminar</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -28,6 +39,9 @@
 
 <script>
     export default{
-        props: ['numProyectos', 'proyectos', 'cambiarEstado']
+        props: ['numProyectos', 'proyectos', 'cambiarEstado', 'limpiarData', 'deleteProyecto'],
+        methods: {
+        
+        },
     }
 </script>

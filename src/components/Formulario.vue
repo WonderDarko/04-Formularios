@@ -17,7 +17,7 @@ import TotalProyectos from './TotalProyectos.vue';
                 completado: false,
             };
             this.proyectos.push(proyecto);
-            localStorage.setItem("proyectos", JSON.stringify(this.proyectos));
+            this.saveData();
             this.proyecto = "";
             this.tipo = "";
             this.urgente = "";
@@ -25,7 +25,19 @@ import TotalProyectos from './TotalProyectos.vue';
         cambiarEstado(proyecto, campo) {
             //this.proyectos[id].urgente = !this.proyectos[id].urgente;
             proyecto[campo] = !proyecto[campo];
+            this.saveData();
         },
+        saveData(){
+            localStorage.setItem("proyectos", JSON.stringify(this.proyectos));
+        },
+        limpiarData(){
+            localStorage.clear();
+            this.proyectos = [];
+        },
+        deleteProyecto(id){
+            this.proyectos.splice(id,1);
+            this.saveData();
+        }
     },
     computed: {
         numProyectos() {
@@ -64,7 +76,7 @@ import TotalProyectos from './TotalProyectos.vue';
                     <select v-model.trim="tipo" class="form-select" required>
                         <option disabled selected value="">Selecciona un tipo</option>
                         <option>Aplicaciones Web con Vue.js</option>
-                        <option>Backend Services con Node.j</option>
+                        <option>Backend Services con Node.js</option>
                         <option>App movil con React Native</option>
                     </select>
                 </div>
@@ -76,7 +88,7 @@ import TotalProyectos from './TotalProyectos.vue';
             </form>
         </div>
         <div class="col-12 col-md-8">
-            <total-proyectos :numProyectos="numProyectos" :proyectos="proyectos" :cambiarEstado="cambiarEstado" />
+            <total-proyectos :numProyectos="numProyectos" :proyectos="proyectos" :cambiarEstado="cambiarEstado" :limpiarData="limpiarData" :deleteProyecto="deleteProyecto" />
         </div>
     </div>
 </template>
